@@ -67,6 +67,15 @@ Internally uses:
 - `https://codeforces.com/api/user.info?handles={handle}`
 - `https://codeforces.com/api/user.status?handle={handle}`
 
+  | API Endpoint                                                                 | Purpose                           | Usage in Project                                       |
+  | ---------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------ |
+  | `https://codeforces.com/api/user.info?handles={handle}`                      | Fetches user profile info         | Get current/max rating, last online time               |
+  | `https://codeforces.com/api/user.status?handle={handle}`                     | Returns user’s submission history | Count problems solved, check last submission           |
+  | `https://codeforces.com/api/user.rating?handle={handle}`                     | Returns user’s contest history    | (Optional) Analyze contest progress over time          |
+  | `https://codeforces.com/api/contest.standings?contestId={id}&from=1&count=1` | Fetches contest data              | (Optional) Get total number of problems in a contest   |
+  | `https://codeforces.com/api/problemset.problems`                             | Returns the full problemset       | (Optional) For advanced analytics or problem filtering |
+  | `https://codeforces.com/api/user.blogEntries?handle={handle}`                | Fetches user’s blog posts         | (Optional) For showing user activity in UI             |
+
 ---
 
 ## 🔁 Cron Job (Scheduled Sync)
