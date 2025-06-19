@@ -138,7 +138,7 @@ cd frontend
 npm install
 npm start
 ```
-video link :
+video link :  https://drive.google.com/file/d/1hLb_X-QlOQP7NreTxcei9kE2r4sBpfze/view?usp=sharing
 
 
 ---
