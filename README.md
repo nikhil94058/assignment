@@ -62,32 +62,31 @@ const StudentSchema = new mongoose.Schema({
 | POST   | `/api/sync/:handle` | Manually sync a student |
 | POST   | `/api/sync`         | Sync all students       |
 
-Internally uses:
+---
 
-- `https://codeforces.com/api/user.info?handles={handle}`
-- `https://codeforces.com/api/user.status?handle={handle}`
+## 🌐 Codeforces API Usage
 
-  | API Endpoint                                                                 | Purpose                           | Usage in Project                                       |
-  | ---------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------ |
-  | `https://codeforces.com/api/user.info?handles={handle}`                      | Fetches user profile info         | Get current/max rating, last online time               |
-  | `https://codeforces.com/api/user.status?handle={handle}`                     | Returns user’s submission history | Count problems solved, check last submission           |
-  | `https://codeforces.com/api/user.rating?handle={handle}`                     | Returns user’s contest history    | (Optional) Analyze contest progress over time          |
-  | `https://codeforces.com/api/contest.standings?contestId={id}&from=1&count=1` | Fetches contest data              | (Optional) Get total number of problems in a contest   |
-  | `https://codeforces.com/api/problemset.problems`                             | Returns the full problemset       | (Optional) For advanced analytics or problem filtering |
-  | `https://codeforces.com/api/user.blogEntries?handle={handle}`                | Fetches user’s blog posts         | (Optional) For showing user activity in UI             |
+Internally uses the following Codeforces APIs:
+
+| API Endpoint                                                                 | Purpose                           | Usage in Project                                       |
+| ---------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------ |
+| `https://codeforces.com/api/user.info?handles={handle}`                      | Fetches user profile info         | Get current/max rating, last online time               |
+| `https://codeforces.com/api/user.status?handle={handle}`                     | Returns user’s submission history | Count problems solved, check last submission           |
+| `https://codeforces.com/api/user.rating?handle={handle}`                     | Returns user’s contest history    | (Optional) Analyze contest progress over time          |
+| `https://codeforces.com/api/contest.standings?contestId={id}&from=1&count=1` | Fetches contest data              | (Optional) Get total number of problems in a contest   |
+| `https://codeforces.com/api/problemset.problems`                             | Returns the full problemset       | (Optional) For advanced analytics or problem filtering |
+| `https://codeforces.com/api/user.blogEntries?handle={handle}`                | Fetches user’s blog posts         | (Optional) For showing user activity in UI             |
 
 ---
 
 ## 🔁 Cron Job (Scheduled Sync)
 
-A cron job runs **daily at 02:00 AM** to sync all students' latest data from Codeforces and update the MongoDB collection.
-
-### Example
+A cron job runs **daily at 2:00 AM** to sync all students’ latest data from Codeforces and update MongoDB.
 
 ```js
 const cron = require("node-cron");
 
-cron.schedule("0 0 * * *", async () => {
+cron.schedule("0 2 * * *", async () => {
   console.log("⏰ Running daily sync...");
   const students = await Student.find({});
   for (const student of students) {
@@ -100,7 +99,7 @@ cron.schedule("0 0 * * *", async () => {
 
 ## 📧 Inactivity Email Alerts
 
-Students who haven't submitted a problem in the last **X days** will automatically receive an inactivity alert email.
+Students who haven't submitted a problem in the last **X days** will receive an automatic inactivity alert email.
 
 ```js
 const isInactive = (lastSubmissionTime) => {
@@ -113,7 +112,7 @@ const isInactive = (lastSubmissionTime) => {
 
 ## 🔒 Environment Variables
 
-Create a `.env` file and add the following:
+Create a `.env` file in your backend folder and add the following:
 
 ```ini
 MONGO_URI=your_mongo_connection_string
@@ -126,7 +125,7 @@ EMAIL_PASS=your_email_password
 ## 🛠 Setup Instructions
 
 ```bash
-# Clone repository
+# Clone the repository
 git clone https://github.com/yourusername/student-progress-tracker.git
 
 # Backend setup
@@ -144,10 +143,6 @@ npm start
 
 ## 📚 References
 
-- [Codeforces API Docs](https://codeforces.com/apiHelp)
-- [node-cron Documentation](https://www.npmjs.com/package/node-cron)
-- [Mongoose Documentation](https://mongoosejs.com/)
-
-```
-
-```
+- [📘 Codeforces API Docs](https://codeforces.com/apiHelp)
+- [⏱ node-cron Documentation](https://www.npmjs.com/package/node-cron)
+- [🧾 Mongoose Documentation](https://mongoosejs.com/)
