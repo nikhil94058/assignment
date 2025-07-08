@@ -25,7 +25,7 @@ const StudentTable = ({ onSelect }) => {
   const [editIndex, setEditIndex] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/students')
+    fetch(`${import.meta.env.VITE_API_URL}/students`)
       .then(res => res.json())
       .then(data => setStudents(data))
       .catch(err => console.error("Error fetching students", err));
@@ -53,7 +53,7 @@ const StudentTable = ({ onSelect }) => {
 
     try {
       if (editIndex !== null) {
-        const response = await fetch(`http://localhost:5000/api/students/${students[editIndex]._id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/${students[editIndex]._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newStudent),
@@ -67,7 +67,7 @@ const StudentTable = ({ onSelect }) => {
         setStudents(updated);
         setEditIndex(null);
       } else {
-        const response = await fetch('http://localhost:5000/api/students', {
+        const response = await fetch('${import.meta.env.VITE_API_URL}/students', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newStudent),
@@ -95,7 +95,7 @@ const StudentTable = ({ onSelect }) => {
 
   const handleEdit = async (id, index) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/students/${id}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/students/${id}`);
       if (!response.ok) throw new Error('Failed to fetch student data');
       const data = await response.json();
       setForm(data);
@@ -109,7 +109,7 @@ const StudentTable = ({ onSelect }) => {
     if (!window.confirm('Are you sure you want to delete this student?')) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/students/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/students/${id}`, {
         method: 'DELETE',
       });
 
